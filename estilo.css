@@ -1,7 +1,14 @@
 .subtitulo  {
  margin-left: 40px;
 }
-
 .encuadre{
     margin-left: 30px;
+}
+.contenedor-botones {
+    display: flex;
+    gap: 10px;
+}
+body {
+    background-color: #000000;
+    color: #ffffff;
 }
