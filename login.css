@@ -1,0 +1,33 @@
+body{
+    display:flex;   
+    flex-direction:row;
+    background-color: #0b0c10;
+    height:100vh
+} 
+label{
+    white-space: nowrap;
+    font-size: 1.2rem;
+}
+button{
+width: 100%;
+padding: 7px;    
+}
+.titulo1{
+    color:#0077b6;
+    font-size: 8rem;
+    margin-left: 50px;
+    margin-top: 70px;
+}
+.formulario{
+    width: 50%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    margin-top: -70px;
+    border:#0b0c10 solid 220px;    
+    background-color:#1f2833;
+}
+img{
+    width: 120%;
+    }
