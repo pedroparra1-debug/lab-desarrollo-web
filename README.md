@@ -16,3 +16,7 @@ Fecha: 8/9/2026.
         Abrir y cerrar lo siguiente: head, el html y el body.
         Establecer el uso de las eñes.
         Colocar el titulo de la pagina.
+Fecha: 12/9.
+    se crea el archivo login.html y la base del login(dos botones para redirigirse a las distintas vistas)
+    creacion del archivo vista_admin.html
+    creacion del archivo vista_encargado.html
