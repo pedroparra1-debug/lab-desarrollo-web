@@ -129,3 +129,17 @@ input, select {
   font-family: monospace;
   margin-top: 10px;
 }
+
+/*adaptacion para telefonos*/
+@media (max-width: 768px) {
+body, .app-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+  }
+  .contenedor-pcs {
+    justify-content: center;
+  }
+}
