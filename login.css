@@ -1,16 +1,21 @@
+.Iciniciar_sesión_como{
+        font-size: 1.4rem;
+
+}
 body{
     display:flex;   
     flex-direction:row;
     background-color: #0b0c10;
+    color: #c5c6c7;
     height:100vh
 } 
 label{
     white-space: nowrap;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 button{
-width: 100%;
-padding: 7px;    
+    width: 100%;
+    padding: 7px;    
 }
 .titulo1{
     color:#0077b6;
@@ -32,12 +37,60 @@ padding: 7px;
     align-items:center;
     margin-top: 0px;
     padding: 40px 20px;
-    border:#0b0c10 solid 220px;    
-    background-color:#1f2833;
+    border-radius: 10px;   
+    background-color:0b0c10;
 
 }
 img{
     width: 120%;
     transform: translateX(1px);
     margin-top: 5px;
+}
+form{
+    background-color: #1f2833;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+@media (max-width: 768px){
+    body{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        padding: 10px;    
+    }
+    .imagen{
+        width: 100%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+    .imagen img{
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+    }
+    .formulario{
+        
+        width: 90%; 
+        max-width: 350px;
+        margin-top: 20px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        
+    }
+    .titulo1{
+        font-size: 3rem;
+        margin: 10px 5px;
+        word-wrap: break-word;
+    }
+    .titulo2{
+        font-size: 2.5rem;
+        margin: 10px 5px;
+        word-wrap: break-word;
+    }
+
+
 }
