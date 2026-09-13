@@ -7,47 +7,6 @@ body {
   padding: 0;
 }
 
-/* Contenedor principal */
-.app-container {
-  display: flex;
-}
-
-/* Menu lateral basico */
-.sidebar {
-  width: 200px;
-  background-color: #333;
-  color: white;
-  min-height: 100vh;
-  padding: 15px;
-}
-
-.sidebar h2 {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.sidebar button {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  background-color: #555;
-  color: white;
-  border: 1px solid #777;
-  cursor: pointer;
-  text-align: left;
-}
-
-.sidebar button:hover {
-  background-color: #777;
-}
-
-/* Contenido */
-.main-content {
-  flex: 1;
-  padding: 20px;
-}
-
 /* Cajas de computadores */
 .contenedor-pcs {
   display: flex;
@@ -132,14 +91,22 @@ input, select {
 
 /*adaptacion para telefonos*/
 @media (max-width: 768px) {
-body, .app-container {
+  /*para alinear el contenido del contenedor de pcs*/
+  .encabezado {
+
     flex-direction: column;
+    text-align: center;
+    gap: 10px;
   }
-  .sidebar {
-    width: 100%;
-    min-height: auto;
-  }
+
+  /* para centrar las targetas de los PCs */
   .contenedor-pcs {
     justify-content: center;
+  }
+
+  /*para ajustar el ancho de las targetas de los PCs a los telefonos */
+  .pcs {
+    width: 90%;
+    max-width: 320px;
   }
 }
