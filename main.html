@@ -1,32 +1,149 @@
 <!DOCTYPE html>
-    <html lang="es">                <!--inicio html-->
-            
-        <head>                <!--encabezado-->
-            <title>Cibercafe - Inicio</title>    <!--titulo de la pagina-->
-            <link rel="stylesheet" href="main.css">     <!--extrae diseño y expropia -->
-            <meta charset="UTF-8">         <!--acentos y la "ñ"-->
-
-        </head>
+<html lang="es">
+    <head> 
+        <title>Cibercafe-Inicio</title>    
+        <link rel="stylesheet" href="main.css">   
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
     
-        <body>  <!--cuerpo de la pagina-->
-            <div>                   <!-- div de equipos-->
-                <h1> Ciber café borrador </h1>
-                
-                <p> Menú principal </p>
-                    <p> [] Acciones</p>
-            
+    <body >  
+        <header class="encabezado">
+            <div class="logo">
+                <h1>Computadoras</h1>
+                <p class="tarifa">Tarifa: 100$/min (6.000$/hr)</p>
             </div>
-                <div class = "subtitulo">
-                    <h2> Equipos disponibles</h2>
-                        <div class = "subtitulo">equipo 1
-                            <p> Estado: activo </p>
-                            <p> Precio por hora: 6.000clp</p>
-                        </div>
-
-                
-
-                </div>
+            <div class="Usuario">
+                <p>Rol: <strong>Administrador</strong></p>
+                <a href="login.html" class="Boton_cerrar_sesion">Cerrar sesión</a>
+            </div>
+        </header>
+        
+        <h2>Equipos disponibles</h2>
     
-        </body>
+        <div class = "contenedor-pcs">
+            <div class="pcs" id="pc1">
+                <h3>PC 1</h3>
+                <p class="disponible">--Disponible--</p>
+                <select class="cliente-selecionado">
+                    <option value="">Seleccionar cliente</option>
+                </select>
+                <div class="controles">
+                    <input type="number" class="tiempo-input" placeholder="Tiempo" min="1">
+                    <select class="unidad">
+                        <option value="minutos">Minutos</option>
+                        <option value="horas">Horas</option>
+                    </select>
+                </div>
+                <p class="costo">Costo: $0</p>
+                <p class="cronometro">00:00:00</p>
+                <button class="iniciar">Iniciar</button>
+                <button class="apagar">Reiniciar</button>
+            </div>
+            <div class="pcs" id="pc2">
+                <h3>PC 2</h3>
+                <p class="disponible">--Disponible--</p>
+                <select class="cliente-selecionado">
+                    <option value="">Seleccionar cliente</option>
+                </select>
+                <div class="controles">
+                    <input type="number" class="tiempo-input" placeholder="Tiempo" min="1">
+                    <select class="unidad">
+                        <option value="minutos">Minutos</option>
+                        <option value="horas">Horas</option>
+                    </select>
+                </div>
+                <p class="costo">Costo: $0</p>
+                <p class="cronometro">00:00:00</p>
+                <button class="iniciar">Iniciar</button>
+                <button class="apagar">Reiniciar</button>
+            </div>
+            <div class="pcs" id="pc3">
+                <h3>PC 3</h3>
+                <p class="disponible">--Disponible--</p>
+                <select class="cliente-selecionado">
+                    <option value="">Seleccionar cliente</option>
+                </select>
+                <div class="controles">
+                    <input type="number" class="tiempo-input" placeholder="Tiempo" min="1">
+                    <select class="unidad">
+                        <option value="minutos">Minutos</option>
+                        <option value="horas">Horas</option>
+                    </select>
+                </div>
+                <p class="costo">Costo: $0</p>
+                <p class="cronometro">00:00:00</p>
+                <button class="iniciar">Iniciar</button>
+                <button class="apagar">Reiniciar</button>
+            </div>
+            <div class="pcs" id="pc4">
+                <h3>PC 4</h3>
+                <p class="disponible">--Disponible--</p>
+                <select class="cliente-selecionado">
+                    <option value="">Seleccionar cliente</option>
+                </select>
+                <div class="controles">
+                    <input type="number" class="tiempo-input" placeholder="Tiempo" min="1">
+                    <select class="unidad">
+                        <option value="minutos">Minutos</option>
+                        <option value="horas">Horas</option>
+                    </select>
+                </div>
+                <p class="costo">Costo: $0</p>
+                <p class="cronometro">00:00:00</p>
+                <button class="iniciar">Iniciar</button>
+                <button class="apagar">Reiniciar</button>
+            </div>
+        </div>
 
-    </html>
+        <section class="Resumen">
+            <div class="Parametros">
+                <p class="titulo-parametros">Equipos Activos</p>
+                <p class="valor" id="Equipos-activos">0/4</p>
+            </div>
+            <div class="Metricas">
+                <p class="titulo-metricas">Recaudacion</p>
+                <p class="valor-metrico" id="Recaudacion-total">0$</p>
+            </div>
+        </section>
+
+        <section class="gestion-clientes">
+            <h2>Gestión de Clientes</h2>
+            <form id="form-cliente">
+                <input type="text" id="nombre-cliente" placeholder="Nombre del cliente" required>
+                <input type="text" id="rut-cliente" placeholder="RUT del cliente" required>
+                <button type="submit">Registrar Cliente</button>
+            </form>
+            <br>
+            <input type="text" id="buscar-cliente" placeholder="Buscar cliente por nombre o RUT">
+        </section>
+
+        <section class="Boleta" id="model-boleta">
+            <h2>Boleta</h2>
+            <div id="detalle">
+                <p><strong>Cliente:</strong> <span id="boleta-nombre">Sin registrar</span></p>
+                <p><strong>Equipo:</strong> <span id="boleta-pc">-</span></p>
+                <p><strong>Tiempo:</strong> <span id="boleta-tiempo">0 min</span></p>
+                <p><strong>Costo:</strong> <span id="boleta-costo">0</span></p>
+                <h3>Adicionales</h3>
+                <ul id="boleta-adicionales">
+                    <li>Sin adicionales</li>
+                </ul>
+                <h4>Total: <span id="boleta-total">0</span></h4>
+                <button id="cerrar-boleta">Cerrar Boleta</button>
+            </div>
+        </section>
+
+        <section class="Admin-serv" id="mod-admin-serv">
+            <h2>Administración de Servicios (extras)</h2>
+            <form id="form-servicio-extra">
+                <input type="text" placeholder="Nombre del servicio" required>
+                <input type="number" placeholder="Precio del servicio" required>
+                <button type="submit">Registrar Servicio</button>
+            </form>
+        </section>
+
+        <script src="main.js"></script>
+    </body>
+
+</html>

@@ -25,7 +25,13 @@ Fecha: 12/9.
     creacion del archivo vista_encargado.html
     }
     Pedro{
-        Reorgazacion, reestructuracion y rediseño del login.html, a su ves le agregue detalles visuales como una imagen, cambio de color del fondo y un borde para los inputs, se reestructuro mediante flexbox para la divicion de la pagina.
+        Reorgazacion, reestructuracion y rediseño del login.html, a su ves le agregue detalles visuales como una imagen, cambio de color del fondo y un borde para el form, se reestructuro mediante flexbox para la divicion de la pagina.
 
         Cambie el nombre estilos.css a main.css para saber que es especificamente del main, complete los login.html/css/js solo quedaria revisalor para ver si le quieren cambiar algo.
+    }
+Fecha: 13/09/2026
+    P{
+      Modifique el login para que se vea "bien" desde celular (no afecto en nada lo que ya tenia previamente), hice todo el html de main tanto como para encargado como para administrador en un solo archivo porque se pueden limitar las acciones dependiendo de la cuenta de ingreso (deje un ejempo en "main.js" el de login.js ya esta echo), aparte de eso solo falta el .css (de este deje uno echo por la ia para tener una idea) y el .js (funciones como el contados de tiempo o el de costos).
+
+      vuelvo a mencionar que le echen una revisada a los 3 login por si acaso, solo faltan el main.css y el main.js aunque tambien revisen el main.html.
     }
