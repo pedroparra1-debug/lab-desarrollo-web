@@ -1,14 +1,131 @@
-.subtitulo  {
- margin-left: 40px;
-}
-.encuadre{
-    margin-left: 30px;
-}
-.contenedor-botones {
-    display: flex;
-    gap: 10px;
-}
+/* Estilos CyberNet - Version Basica */
+
 body {
-    background-color: #000000;
-    color: #ffffff;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.app-container {
+  display: flex;
+}
+
+/* Menu lateral basico */
+.sidebar {
+  width: 200px;
+  background-color: #333;
+  color: white;
+  min-height: 100vh;
+  padding: 15px;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #555;
+  color: white;
+  border: 1px solid #777;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar button:hover {
+  background-color: #777;
+}
+
+/* Contenido */
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Cajas de computadores */
+.contenedor-pcs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.pcs {
+  width: 220px;
+  border: 2px solid #000;
+  padding: 12px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* Estados de equipos con colores directos */
+.disponible {
+    border-color: green;
+    background-color: #e8f5e9;
+}
+
+.ocupado {
+    border-color: red; 
+    background-color: #ffebee;
+}
+
+.reservado {
+    border-color: orange;
+    background-color: #fffde7;
+}
+
+.desactivado {
+    border-color: gray;
+    background-color: #eee;
+}
+
+/* Tablas sencillas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: white;
+}
+
+table, th, td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #ddd;
+}
+
+/* Formularios y botones */
+input, select {
+  padding: 5px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.btn {
+  padding: 6px 12px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: red;
+}
+
+/* Boleta de cobro */
+.boleta-box {
+  border: 1px dashed black;
+  padding: 15px;
+  background-color: #fff;
+  font-family: monospace;
+  margin-top: 10px;
 }
