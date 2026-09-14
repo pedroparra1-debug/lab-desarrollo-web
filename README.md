@@ -35,3 +35,5 @@ Fecha: 13/09/2026
 
       vuelvo a mencionar que le echen una revisada a los 3 login por si acaso, solo faltan el main.css y el main.js aunque tambien revisen el main.html.
     }
+Fecha: 13/09/26
+Se realiza el main,CSS de forma basica y ordenada sin tanto detalle. falta el main.Js y se culmina el codigo.  

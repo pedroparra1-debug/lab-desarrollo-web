@@ -1,14 +1,112 @@
-.subtitulo  {
- margin-left: 40px;
-}
-.encuadre{
-    margin-left: 30px;
-}
-.contenedor-botones {
-    display: flex;
-    gap: 10px;
-}
+/* Estilos CyberNet - Version Basica */
+
 body {
-    background-color: #000000;
-    color: #ffffff;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cajas de computadores */
+.contenedor-pcs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.pcs {
+  width: 220px;
+  border: 2px solid #000;
+  padding: 12px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* Estados de equipos con colores directos */
+.disponible {
+    border-color: green;
+    background-color: #e8f5e9;
+}
+
+.ocupado {
+    border-color: red; 
+    background-color: #ffebee;
+}
+
+.reservado {
+    border-color: orange;
+    background-color: #fffde7;
+}
+
+.desactivado {
+    border-color: gray;
+    background-color: #eee;
+}
+
+/* Tablas sencillas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: white;
+}
+
+table, th, td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #ddd;
+}
+
+/* Formularios y botones */
+input, select {
+  padding: 5px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.btn {
+  padding: 6px 12px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: red;
+}
+
+/* Boleta de cobro */
+.boleta-box {
+  border: 1px dashed black;
+  padding: 15px;
+  background-color: #fff;
+  font-family: monospace;
+  margin-top: 10px;
+}
+
+/*adaptacion para telefonos*/
+@media (max-width: 768px) {
+  /*para alinear el contenido del contenedor de pcs*/
+  .encabezado {
+
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  /* para centrar las targetas de los PCs */
+  .contenedor-pcs {
+    justify-content: center;
+  }
+
+  /*para ajustar el ancho de las targetas de los PCs a los telefonos */
+  .pcs {
+    width: 90%;
+    max-width: 320px;
+  }
 }
