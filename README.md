@@ -11,7 +11,7 @@ Documentacion del proyecto:
 Fecha: 8/9/2026.
     Pedro{
     Al iniciar el proyecto lo primero que hizo fue crear un repositorio y subirlo a github para asi poder compartir los avaces entre los participantes del grupo.
-    A continuacion solo se hicieron cosas vasicas como:
+    A continuacion solo se hicieron cosas basicas como:
         Declarar la version del html.
         Establecer el idioma.
         Abrir y cerrar lo siguiente: head, el html y el body.
