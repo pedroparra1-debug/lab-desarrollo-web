@@ -97,7 +97,6 @@ const tarjetasPC = document.querySelectorAll('.pcs');
         btnIniciar.addEventListener('click', () => {
             const tiempoIngresado = Number(inputTiempo.value);
  
-            // Validación simple (pedido por el enunciado: mostrar errores claros)
             if (!tiempoIngresado || tiempoIngresado <= 0) {
                 alert('Ingresa un tiempo válido antes de iniciar.');
                 return;
@@ -107,10 +106,9 @@ const tarjetasPC = document.querySelectorAll('.pcs');
                 return;
             }
             if (sesionActiva) {
-                return; // ya está corriendo, evitamos doble click
+                return;
             }
  
-            // Cálculo de segundos según la unidad elegida
             if (selectUnidad.value === 'horas') {
                 segundosRestantes = tiempoIngresado * 3600;
                 costoActual = tiempoIngresado * 6000;
@@ -144,7 +142,6 @@ const tarjetasPC = document.querySelectorAll('.pcs');
         if (btnApagar) {
             btnApagar.addEventListener('click', () => {
                 if (sesionActiva) {
-                    // Si se apaga antes de tiempo, descontamos lo cobrado
                     recaudacionTotal -= costoActual;
                     actualizarResumen();
                 }
