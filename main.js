@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const rol = localStorage.getItem('userrole') || 'Encargado';
-    const textoRol = document.querySelector(".Usuario p strong");
+    const textoRol=document.getElementById("rol-display");
     if (textoRol) {
         textoRol.textContent = rol;
     }
@@ -35,6 +35,8 @@ tarjetasPC.forEach((tarjeta)=>{
     const btnIniciar=tarjeta.querySelector(".iniciar");
     const btnReiniciar=tarjeta.querySelector(".apagar")
 
+    tarjeta.classList.remove("disponible", "ocupado", "reservado", "desactivado");
+    tarjeta.classList.add(selectmodo.value);
 
     estadosesion[idPC]={
         intervalo:null,
@@ -86,10 +88,26 @@ tarjetasPC.forEach((tarjeta)=>{
                 estadoactual.enejecucion=false;
                 btnIniciar.textContent="iniciar";
                 const h3t=tarjeta.querySelector("h3").textContent;
-                Agregarhis(`${h3t}-sesion cerrada.`);
+                const mintotales=Math.ceil(estadoactual.segundostotales/60);
+                const costoT=mintotales*Tarifa_por_minuto;
+                const fechaHoy=new Date().toISOString().split("T")[0];
+                const nuevaseccion={
+                    fecha:fechaHoy,
+                    cliente:"CLiente General",
+                    pc:h3t,
+                    tiempo:`${mintotales} minutos`,
+                    costo:`${costoT.toLocaleString()}$`
+                };
+
+                let historial=JSON.parse(localStorage.getItem("historial"))||[];
+                historial.unshift(nuevaseccion);
+                localStorage.setItem("historial", JSON.stringify(historial));
+
+                Agregarhis(`${h3t}-sesion cerrada. Costo: ${costoT.toLocaleString()}$`);
                 selectmodo.value="disponible";
                 selectmodo.dispatchEvent(new Event("change"));
-                alert(`tiempo terminado en ${h3t}`);
+                alert(`tiempo terminado en ${h3t}. Costo total: ${costoT.toLocaleString()}$`);
+                
             }
         }, 1000);
     });
@@ -128,8 +146,9 @@ tarjetasPC.forEach((tarjeta)=>{
                acti++;
             }
          });
+         const equiposacti=document.getElementById("Equipos-activos");
         if(equiposacti){
-           equiposacti.textContent.value=`${acti}/${tarjetasPC.length}`;
+           equiposacti.textContent=`${acti}/${tarjetasPC.length}`;
         }
     }
 
@@ -141,6 +160,7 @@ tarjetasPC.forEach((tarjeta)=>{
     const ahora=new Date();
     const horaformateada=ahora.toLocaleTimeString([],{hour: '2-digit', minute: '2-digit', second: '2-digit'})
     const nuevoitem=document.createElement("li");
+    nuevoitem.textContent=`[${horaformateada}] ${mensaje}`;
     historiallista.insertBefore(nuevoitem, historiallista.firstChild);
     }
 });

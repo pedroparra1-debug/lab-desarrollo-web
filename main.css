@@ -1,112 +1,260 @@
-/* Estilos CyberNet - Version Basica */
-
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0b0c10;
+    color: #c5c6c7;
+    margin: 0;
+    padding: 0;
 }
 
-/* Cajas de computadores */
+.encabezado {
+    background-color: #1f2833;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0077b6;
+}
+
+.logo h1 {
+    color: #0077b6;
+    margin: 0;
+    font-size: 2rem;
+}
+
+.tarifa {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: #c5c6c7;
+}
+
+.Usuario {
+    text-align: right;
+}
+
+.Boton_cerrar_sesion {
+    color: #ff6e6e;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.Boton_cerrar_sesion:hover {
+    text-decoration: underline;
+}
+
+.main-container {
+    padding: 30px;
+}
+
+h2 {
+    color: #0077b6;
+    margin-bottom: 20px;
+}
+
 .contenedor-pcs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
 .pcs {
-  width: 220px;
-  border: 2px solid #000;
-  padding: 12px;
-  background-color: white;
-  border-radius: 4px;
+    width: 240px;
+    border: 2px solid #1f2833;
+    padding: 20px;
+    background-color: #1f2833;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
 }
 
-/* Estados de equipos con colores directos */
-.disponible {
-    border-color: green;
-    background-color: #e8f5e9;
+.pcs:hover {
+    transform: translateY(-3px);
 }
 
-.ocupado {
-    border-color: red; 
-    background-color: #ffebee;
+.pcs h3 {
+    margin-top: 0;
+    color: #66fcf1;
 }
 
-.reservado {
-    border-color: orange;
-    background-color: #fffde7;
+.pcs.disponible {
+    border-color: #4e9f3d;
+    background-color: #121c16;
 }
 
-.desactivado {
-    border-color: gray;
-    background-color: #eee;
+.pcs.ocupado {
+    border-color: #d83a56;
+    background-color: #221316;
 }
 
-/* Tablas sencillas */
+.pcs.reservado {
+    border-color: #ffaa00;
+    background-color: #221d11;
+}
+
+.pcs.desactivado {
+    border-color: #555555;
+    background-color: #151515;
+    opacity: 0.6;
+}
+
+select, input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    background-color: #0b0c10;
+    color: #c5c6c7;
+    border: 1px solid #45a29e;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.controles {
+    display: flex;
+    gap: 5px;
+}
+
+.controles input {
+    width: 60%;
+}
+
+.controles select {
+    width: 40%;
+}
+
+.costo, .cronometro {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.cronometro {
+    color: #66fcf1;
+    font-family: monospace;
+}
+
+.btn-accion {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-accion:hover {
+    background-color: #00b4d8;
+}
+
+.pcs .apagar {
+    background-color: #c0392b;
+}
+
+.pcs .apagar:hover {
+    background-color: #e74c3c;
+}
+
+.panel-inferior {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card-panel, .Resumen {
+    background-color: #1f2833;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #45a29e;
+}
+
+.Resumen {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Parametros, .Metricas {
+    text-align: center;
+}
+
+.titulo-parametros, .titulo-metricas {
+    font-size: 0.9rem;
+    color: #8c92a4;
+}
+
+.valor, .valor-metrico {
+    font-size: 1.8rem;
+    color: #66fcf1;
+    font-weight: bold;
+}
+
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  background-color: white;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #0b0c10;
 }
 
 table, th, td {
-  border: 1px solid #999;
-  padding: 8px;
-  text-align: left;
+    border: 1px solid #45a29e;
+    padding: 8px;
+    text-align: left;
+    color: #c5c6c7;
 }
 
 th {
-  background-color: #ddd;
+    background-color: #1f2833;
+    color: #66fcf1;
 }
 
-/* Formularios y botones */
-input, select {
-  padding: 5px;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.btn {
-  padding: 6px 12px;
-  background-color: #008CBA;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-danger {
-  background-color: red;
-}
-
-/* Boleta de cobro */
 .boleta-box {
-  border: 1px dashed black;
-  padding: 15px;
-  background-color: #fff;
-  font-family: monospace;
-  margin-top: 10px;
+    border: 1px dashed #45a29e;
+    padding: 15px;
+    background-color: #0b0c10;
+    font-family: monospace;
+    margin-top: 10px;
 }
 
-/*adaptacion para telefonos*/
+.navegacion {
+    display: flex;
+    gap: 20px;
+}
+
+.navegacion a {
+    color: #c5c6c7;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.navegacion a:hover {
+    background-color: #0077b6;
+    color: #ffffff;
+}
+
 @media (max-width: 768px) {
-  /*para alinear el contenido del contenedor de pcs*/
-  .encabezado {
+    .encabezado {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 15px;
+    }
 
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
+    .contenedor-pcs {
+        justify-content: center;
+    }
 
-  /* para centrar las targetas de los PCs */
-  .contenedor-pcs {
-    justify-content: center;
-  }
+    .pcs {
+        width: 100%;
+        max-width: 320px;
+    }
 
-  /*para ajustar el ancho de las targetas de los PCs a los telefonos */
-  .pcs {
-    width: 90%;
-    max-width: 320px;
-  }
+    .panel-inferior {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <title>CyberCafé - Gestión de Cliente</title>    
+    <link rel="stylesheet" href="main.css">   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body> 
+    <header class="encabezado">
+        <div class="logo">
+            <h1>Panel CyberNet</h1>
+            </div>
+        <nav class="navegacion">
+            <a href="main.html">Inicio/PCs</a>
+            <a href="clientes.html">Gestión de Clientes</a>
+            <a href="historial.html">Historial</a>
+        </nav>
+        <div class="Usuario">
+            <p>Rol: <strong id="rol-display">Administrador</strong></p>
+            <a href="login.html" class="Boton_cerrar_sesion">Cerrar sesión</a>
+        </div>
+    </header>
+    <main class="main-container">
+        <h2>Gestión de Clientes</h2>
+        <section class="card-panel" style="margin-top: 20px;">
+            <h3>Agregar Cliente</h3>
+            <form id="formulario-cliente">
+                <input type="text" id="nombre-cliente" placeholder="Nombre del cliente" required>
+                <input type="text" id="rut-cliente" placeholder="RUT del cliente" required>
+                <button type="submit" class="btn-accion">Agregar Cliente</button>
+            </form>
+        </section>
+
+        <section class="card-panel" style="margin-top: 20px;">
+            <input type="text" id="filtrar-clientes" placeholder="Filtrar clientes por nombre o RUT">
+        </section>
+
+        <section class="card-panel"></section>
+        <h3>Clientes resgistrados</h3>
+        <table class="tabla-clientes">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>RUT</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pedro Parra</td>
+                    <td>28.091.498-3</td>
+                    <td><button class="btn-accion">Editar</button> <button class="btn-accion apagar">Eliminar</button></td>
+                </tr>
+                <tr>
+                    <td>Carlos Garcia</td>
+                    <td>27.209.517-5</td>
+                    <td><button class="btn-accion">Editar</button> <button class="btn-accion apagar">Eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+        </section>
+    </main>
+    <script src="clientes.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <title>CyberCafé - Historial de Sesiones</title>    
+    <link rel="stylesheet" href="main.css">   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body> 
+    <header class="encabezado">
+        <div class="logo">
+            <h1>Panel CyberNet</h1>
+            </div>
+        <nav class="navegacion">
+            <a href="main.html">Inicio/PCs</a>
+            <a href="clientes.html">Gestión de Clientes</a>
+            <a href="historial.html">Historial</a>
+        </nav>
+        <div class="Usuario">
+            <p>Rol: <strong id="rol-display">Administrador</strong></p>
+            <a href="login.html" class="Boton_cerrar_sesion">Cerrar sesión</a>
+        </div>
+    </header>
+    <main class="main-container">
+        <h2>Historial de Sesiones</h2>
+        <section class="historial" style="margin-top: 20px;">
+            <h3>filtros</h3>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <input type="date" id="filtro-fecha" placeholder="Filtrar por fecha">
+            <input type="text" id="filtro-cliente" placeholder="Filtrar por Nobre o RUt">
+                <select id="filtro-pc">
+                    <option value="">Filtrar por PC</option>
+                    <option value="pc1">PC 1</option>
+                    <option value="pc2">PC 2</option>
+                    <option value="pc3">PC 3</option>
+                    <option value="pc4">PC 4</option>
+                </select>
+            </div>
+        </section>
+        <section class="historial">
+            <h3>Historial anteriores</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                         <th>PC</th>
+                        <th>tiempo total</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026-10-15</td>
+                        <td>Pedro Parra</td>
+                        <td>PC 1</td>
+                        <td>2 horas</td>
+                        <td>$12.000</td>
+                    </tr>
+                    <tr>
+                        <td>2026-10-15</td>
+                        <td>Carlos Garcia</td>
+                        <td>PC 2</td>
+                        <td>2 hora</td>
+                        <td>$12.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tbody=document.querySelector("tbody");
+        const historialuardado=JSON.parse(localStorage.getItem("historial")) || [];
+        if(historialuardado.length > 0){
+            historialuardado.forEach(historial => {
+                const fila=document.createElement("tr");
+                fila.innerHTML=`
+                    <td>${historial.fecha}</td>
+                    <td>${historial.cliente}</td>
+                    <td>${historial.pc}</td>
+                    <td>${historial.tiempo}</td>
+                    <td>${historial.monto}</td>
+                `;
+                tbody.prepend(fila);
+            });
+        }
+    });
+</script>
+
