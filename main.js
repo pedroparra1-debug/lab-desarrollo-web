@@ -18,6 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
             seccionMetricas.style.display = "none";
         }
     }
+    const recaudacionTotal=parseFloat(localStorage.getItem("recaudacionTotal"))||0;
+    const visorRecaudacion=document.getElementById("recaudacion-display");
+    if(visorRecaudacion){
+        visorRecaudacion.textContent=`$${recaudacionTotal.toLocaleString()}`;
+    }
+    
 const Tarifa_por_minuto=100;
 const tarjetasPC=document.querySelectorAll(".pcs")
 const equiposactivos=document.getElementById("Equipos-activos")
@@ -96,12 +102,20 @@ tarjetasPC.forEach((tarjeta)=>{
                     cliente:"CLiente General",
                     pc:h3t,
                     tiempo:`${mintotales} minutos`,
-                    costo:`${costoT.toLocaleString()}$`
+                    monto:`$${costoT.toLocaleString()}`
                 };
 
                 let historial=JSON.parse(localStorage.getItem("historial"))||[];
                 historial.unshift(nuevaseccion);
                 localStorage.setItem("historial", JSON.stringify(historial));
+
+                let recaudacionTotal=parseFloat(localStorage.getItem("recaudacionTotal"))||0;
+                recaudacionTotal+=costoT;
+                localStorage.setItem("recaudacionTotal", recaudacionTotal);
+                const visorRecaudacion=document.getElementById("recaudacion-display");
+                if(visorRecaudacion){
+                    visorRecaudacion.textContent=`$${recaudacionTotal.toLocaleString()}`;
+                }
 
                 Agregarhis(`${h3t}-sesion cerrada. Costo: ${costoT.toLocaleString()}$`);
                 selectmodo.value="disponible";
@@ -164,3 +178,4 @@ tarjetasPC.forEach((tarjeta)=>{
     historiallista.insertBefore(nuevoitem, historiallista.firstChild);
     }
 });
+

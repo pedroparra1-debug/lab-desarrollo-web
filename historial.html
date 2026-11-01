@@ -27,7 +27,7 @@
             <h3>filtros</h3>
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
             <input type="date" id="filtro-fecha" placeholder="Filtrar por fecha">
-            <input type="text" id="filtro-cliente" placeholder="Filtrar por Nobre o RUt">
+            <input type="text" id="filtro-cliente" placeholder="Filtrar por Nobre">
                 <select id="filtro-pc">
                     <option value="">Filtrar por PC</option>
                     <option value="pc1">PC 1</option>
@@ -47,6 +47,7 @@
                          <th>PC</th>
                         <th>tiempo total</th>
                         <th>Monto</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,20 +75,64 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const tbody=document.querySelector("tbody");
+        function cargarHistorial(){
+            tbody.innerHTML="";
         const historialuardado=JSON.parse(localStorage.getItem("historial")) || [];
         if(historialuardado.length > 0){
-            historialuardado.forEach(historial => {
+            historialuardado.forEach((historial, index) => {
                 const fila=document.createElement("tr");
                 fila.innerHTML=`
-                    <td>${historial.fecha}</td>
-                    <td>${historial.cliente}</td>
-                    <td>${historial.pc}</td>
-                    <td>${historial.tiempo}</td>
-                    <td>${historial.monto}</td>
-                `;
-                tbody.prepend(fila);
+                        <td>${historial.fecha}</td>
+                        <td>${historial.cliente}</td>
+                        <td>${historial.pc}</td>
+                        <td>${historial.tiempo}</td>
+                        <td>${historial.monto || historial.costo}</td>
+                        <td><button class="btn-accion apagar btn-eliminar-historial" data-index="${index}" style="padding: 4px 8px; width: auto;">Eliminar</button></td>
+                    `;
+                tbody.appendChild(fila);
+            });
+        } else {
+            tbody.innerHTML=tbody.innerHTML = `<tr><td colspan="6" style="text-align: center;">No hay registros en el historial.</td></tr>`;
+        }
+        }
+        cargarHistorial();
+tbody.addEventListener("click", (event) => {
+            if(event.target.classList.contains("btn-eliminar-historial")){
+                const index=event.target.getAttribute("data-index");
+                let historialuardado=JSON.parse(localStorage.getItem("historial")) || [];
+                if(confirm("¿Está seguro de que desea eliminar este registro del historial?")){
+                    historialuardado.splice(index, 1);
+                    localStorage.setItem("historial", JSON.stringify(historialuardado));
+                    cargarHistorial();
+                }
+        const inputFecha=document.getElementById("filtro-fecha");
+        const inputCliente=document.getElementById("filtro-cliente");
+        const selectPC=document.getElementById("filtro-pc");
+        function aplicarFiltros(){
+            const fechaval=inputFecha.value;
+            const clienteval=inputCliente.value.toLowerCase().trim();
+            const pcval=selectPC.value.toLowerCase().trim();
+            const filas=tbody.querySelectorAll("tr");
+             filas.forEach(fila => {
+                const fechatexto=fila.cells[0].textContent.toLowerCase();
+                const clientetexto=fila.cells[1].textContent.toLowerCase();
+                const pctexto=fila.cells[2].textContent.toLowerCase();
+                const coincidefecha=!fechaval || fechatexto.includes(fechaval);
+                const coincidecliente=!clienteval || clientetexto.includes(clienteval);
+                const pclimpio=pcval.replace(/\s+/g, '');
+                const pcfilimpia=pctexto.replace(/\s+/g, '');
+                const coincidepc=!pcval || pcfilimpia.includes(pclimpio);
+                if(coincidefecha&&coincidecliente&&coincidepc) {
+                    fila.style.display="";
+                }else{
+                    fila.style.display="none";
+                }
             });
         }
+    if(inputFecha) inputFecha.addEventListener("input", aplicarFiltros);
+    if(inputCliente) inputCliente.addEventListener("input", aplicarFiltros);
+    if(selectPC) selectPC.addEventListener("change", aplicarFiltros);
     });
 </script>
+
 

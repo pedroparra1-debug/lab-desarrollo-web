@@ -237,6 +237,7 @@ th {
     color: #ffffff;
 }
 
+
 @media (max-width: 768px) {
     .encabezado {
         flex-direction: column;

@@ -22,8 +22,9 @@ if(formCliente){
         nuevafila.innerHTML=`
             <td>${nombre}</td>
             <td>${rut}</td>
-            <td><button class="eliminar-cliente" style="padding: 4px 8px;">Eliminar</button>
-            <button class="editar-cliente" style="padding: 4px 8px;">Editar</button></td>
+            <td>
+        <button class="btn-accion editar-cliente">Editar</button>
+        <button class="btn-accion apagar eliminar-cliente">Eliminar</button></td>
         `;
         tablaClientesBody.appendChild(nuevafila);
         formCliente.reset();
@@ -44,8 +45,8 @@ if(tablaClientesBody){
             const celdas=fila.querySelectorAll("td");
             const nombreActual=celdas[0].textContent;
             const rutActual=celdas[1].textContent;
-            const nuevoNombre=prompt("Ingrese el nuevo nombre del cliente:",nombreActual) require();
-            const nuevoRut=prompt("Ingrese el nuevo RUT del cliente:",rutActual)require();
+            const nuevoNombre=prompt("Ingrese el nuevo nombre del cliente:",nombreActual);
+            const nuevoRut=prompt("Ingrese el nuevo RUT del cliente:",rutActual);
             if(nuevoNombre!==null&&nuevoRut!==null){
                 celdas[0].textContent=nuevoNombre.trim();
                 celdas[1].textContent=nuevoRut.trim();
