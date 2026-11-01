@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Boleta - CyberNet</title>
+    <link rel="stylesheet" href="archivo principal.css">
+    <!-- Carga obligatoria de Alpine.js según requerimientos -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .container-boleta { display: flex; gap: 20px; padding: 20px; flex-wrap: wrap; }
+        .form-box, .ticket-box { flex: 1; min-width: 320px; background: #1e1e2f; padding: 20px; border-radius: 8px; color: #fff; }
+        .ticket { background: #fff; color: #000; padding: 15px; font-family: monospace; border-radius: 4px; margin-top: 15px; }
+        .error-msg { color: #ff4d4d; font-size: 0.85em; margin-top: 4px; }
+        .input-group { margin-bottom: 12px; display: flex; flex-direction: column; }
+        .input-group label { margin-bottom: 4px; font-size: 0.9em; }
+        .input-group input, .input-group select { padding: 8px; border-radius: 4px; border: 1px solid #444; background: #2b2b3d; color: #fff; }
+        .btn-action { background: #00d1b2; color: #fff; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-action:hover { background: #00b89c; }
+        .btn-print { background: #3273dc; margin-left: 10px; }
+        @media print {
+            body * { visibility: hidden; }
+            #area-impresion, #area-impresion * { visibility: visible; }
+            #area-impresion { position: absolute; left: 0; top: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación del Sistema -->
+    <nav style="background: #111; padding: 15px; display: flex; gap: 15px;">
+        <a href="main.html" style="color: #fff; text-decoration: none;">Inicio</a>
+        <a href="clientes.html" style="color: #fff; text-decoration: none;">Clientes</a>
+        <a href="boleta.html" style="color: #00d1b2; text-decoration: none; font-weight: bold;">Generar Boleta</a>
+        <a href="historial.html" style="color: #fff; text-decoration: none;">Historial</a>
+    </nav>
+
+    <div class="container-boleta" x-data="boletaApp()">
+        
+        <!-- Formulario de Emisión de Boleta -->
+        <div class="form-box">
+            <h2>Emisión de Boleta de Servicio</h2>
+            
+            <form @submit.prevent="generarBoleta()">
+                <div class="input-group">
+                    <label>RUT Cliente:</label>
+                    <input type="text" x-model="rut" placeholder="12345678-9" @input="validarRut()">
+                    <span class="error-msg" x-text="errores.rut"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Nombre Cliente:</label>
+                    <input type="text" x-model="nombre" placeholder="Juan Pérez">
+                    <span class="error-msg" x-text="errores.nombre"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Servicio / Equipo:</label>
+                    <select x-model="servicio">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="Uso PC Gamer (Hora)">Uso PC Gamer ($1.500/hr)</option>
+                        <option value="Uso PC Estándar (Hora)">Uso PC Estándar ($1.000/hr)</option>
+                        <option value="Impresiones / Escáner">Impresiones ($200 c/u)</option>
+                        <option value="Consumo CiberCafé">Consumo CiberCafé</option>
+                    </select>
+                    <span class="error-msg" x-text="errores.servicio"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Cantidad / Horas:</label>
+                    <input type="number" min="1" x-model.number="cantidad">
+                    <span class="error-msg" x-text="errores.cantidad"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Precio Unitario ($):</label>
+                    <input type="number" min="1" x-model.number="precioUnitario">
+                    <span class="error-msg" x-text="errores.precioUnitario"></span>
+                </div>
+
+                <button type="submit" class="btn-action">Generar Boleta</button>
+            </form>
+        </div>
+
+        <!-- Previsualización de Boleta e Impresión -->
+        <div class="ticket-box">
+            <h2>Vista Previa</h2>
+            
+            <template x-if="boletaEmitida">
+                <div>
+                    <div id="area-impresion" class="ticket">
+                        <h3 style="text-align: center; margin: 0;">CYBERNET CIBERCAFÉ</h3>
+                        <p style="text-align: center; margin: 5px 0;">RUT: 76.543.210-K</p>
+                        <p style="text-align: center; margin: 5px 0;">Av. Principal #1234, Santiago</p>
+                        <hr>
+                        <p><strong>N° Boleta:</strong> <span x-text="numeroBoleta"></span></p>
+                        <p><strong>Fecha:</strong> <span x-text="fecha"></span></p>
+                        <p><strong>Cliente:</strong> <span x-text="nombre"></span> (<span x-text="rut"></span>)</p>
+                        <hr>
+                        <table style="width: 100%; text-align: left; font-size: 0.9em;">
+                            <thead>
+                                <tr>
+                                    <th>Detalle</th>
+                                    <th>Cant.</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td x-text="servicio"></td>
+                                    <td x-text="cantidad"></td>
+                                    <td x-text="'$' + (cantidad * precioUnitario).toLocaleString('es-CL')"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <p><strong>Subtotal:</strong> $<span x-text="subtotal.toLocaleString('es-CL')"></span></p>
+                        <p><strong>IVA (19%):</strong> $<span x-text="iva.toLocaleString('es-CL')"></span></p>
+                        <p style="font-size: 1.2em;"><strong>TOTAL:</strong> $<span x-text="total.toLocaleString('es-CL')"></span></p>
+                        <hr>
+                        <p style="text-align: center;">¡Gracias por su preferencia!</p>
+                    </div>
+
+                    <button class="btn-action btn-print" @click="window.print()">Imprimir / PDF</button>
+                </div>
+            </template>
+
+            <template x-if="!boletaEmitida">
+                <p style="color: #aaa;">Complete el formulario y presione "Generar Boleta" para ver el detalle de cobro.</p>
+            </template>
+        </div>
+
+    </div>
+
+    <script>
+        function boletaApp() {
+            return {
+                rut: '',
+                nombre: '',
+                servicio: '',
+                cantidad: 1,
+                precioUnitario: 1000,
+                boletaEmitida: false,
+                numeroBoleta: '',
+                fecha: '',
+                subtotal: 0,
+                iva: 0,
+                total: 0,
+                errores: {},
+
+                validarRut() {
+                    this.rut = this.rut.replace(/[^0-9kK-]/g, '');
+                },
+
+                validarFormulario() {
+                    this.errores = {};
+                    let valido = true;
+
+                    if (!this.rut || this.rut.length < 8) {
+                        this.errores.rut = 'Ingrese un RUT válido.';
+                        valido = false;
+                    }
+                    if (!this.nombre.trim()) {
+                        this.errores.nombre = 'El nombre es obligatorio.';
+                        valido = false;
+                    }
+                    if (!this.servicio) {
+                        this.errores.servicio = 'Seleccione un servicio.';
+                        valido = false;
+                    }
+                    if (!this.cantidad || this.cantidad < 1) {
+                        this.errores.cantidad = 'La cantidad debe ser al menos 1.';
+                        valido = false;
+                    }
+                    if (!this.precioUnitario || this.precioUnitario < 1) {
+                        this.errores.precioUnitario = 'El precio debe ser mayor a 0.';
+                        valido = false;
+                    }
+
+                    return valido;
+                },
+
+                generarBoleta() {
+                    if (!this.validarFormulario()) return;
+
+                    const totalCalculado = this.cantidad * this.precioUnitario;
+                    this.subtotal = Math.round(totalCalculado / 1.19);
+                    this.iva = totalCalculado - this.subtotal;
+                    this.total = totalCalculado;
+                    
+                    this.numeroBoleta = 'BOL-' + Math.floor(100000 + Math.random() * 900000);
+                    this.fecha = new Date().toLocaleString('es-CL');
+                    this.boletaEmitida = true;
+                }
+            };
+        }
+    </script>
+</body>
+</html>
