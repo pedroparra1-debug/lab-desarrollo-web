@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     const recaudacionTotal=parseFloat(localStorage.getItem("recaudacionTotal"))||0;
-    const visorRecaudacion=document.getElementById("recaudacion-display");
+    const visorRecaudacion=document.getElementById("Recaudacion-total");
     if(visorRecaudacion){
         visorRecaudacion.textContent=`$${recaudacionTotal.toLocaleString()}`;
     }

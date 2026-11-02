@@ -58,6 +58,7 @@
                         <td>PC 1</td>
                         <td>2 horas</td>
                         <td>$12.000</td>
+                        <td><button class="btn-accion apagar btn-eliminar-historial" style="padding: 4px 8px; width: auto;">Eliminar</button></td>
                     </tr>
                     <tr>
                         <td>2026-10-15</td>
@@ -65,6 +66,7 @@
                         <td>PC 2</td>
                         <td>2 hora</td>
                         <td>$12.000</td>
+                        <td><button class="btn-accion apagar btn-eliminar-historial" style="padding: 4px 8px; width: auto;">Eliminar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -78,6 +80,13 @@
         const tbody=document.querySelector("tbody");
         function cargarHistorial(){
             tbody.innerHTML="";
+        if(!localStorage.getItem("historial")){
+            const historialInicial=[
+                {fecha:"2026-10-15", cliente:"Pedro Parra", pc:"PC 1", tiempo:"2 horas", monto:"$12.000"},
+                {fecha:"2026-10-15", cliente:"Carlos Garcia", pc:"PC 2", tiempo:"2 horas", monto:"$12.000"}
+            ];
+            localStorage.setItem("historial", JSON.stringify(historialInicial));
+        }
         const historialuardado=JSON.parse(localStorage.getItem("historial")) || [];
         if(historialuardado.length > 0){
             historialuardado.forEach((historial, index) => {
@@ -93,8 +102,8 @@
                 tbody.appendChild(fila);
             });
         } else {
-            tbody.innerHTML=tbody.innerHTML = `<tr><td colspan="6" style="text-align: center;">No hay registros en el historial.</td></tr>`;
-        }
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center;">No hay registros en el historial.</td></tr>`;
+            }
         }
         cargarHistorial();
 tbody.addEventListener("click", (event) => {
@@ -106,6 +115,8 @@ tbody.addEventListener("click", (event) => {
                     localStorage.setItem("historial", JSON.stringify(historialuardado));
                     cargarHistorial();
                 }
+            }
+        });
         const inputFecha=document.getElementById("filtro-fecha");
         const inputCliente=document.getElementById("filtro-cliente");
         const selectPC=document.getElementById("filtro-pc");
@@ -134,6 +145,4 @@ tbody.addEventListener("click", (event) => {
     if(inputCliente) inputCliente.addEventListener("input", aplicarFiltros);
     if(selectPC) selectPC.addEventListener("change", aplicarFiltros);
     });
-</script>
-
-
+    </script>
