@@ -1,4 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
+    function cargarSelectoresServicios(){
+        const selects=document.querySelectorAll(".select-agregar-servicio");
+        const listaServicios=JSON.parse(localStorage.getItem("servicios"))||[];
+     selects.forEach(select=>{
+            select.innerHTML=`<option value="">Agregar servicio</option>`;
+         listaServicios.forEach(serv=>{
+         const precioNumerico=parseInt(serv.precio.replace(/[^0-9]/g, ""))||0;
+            const option=document.createElement("option");
+         option.value=precioNumerico;
+         option.textContent=`${serv.nombre} (${serv.precio})`;
+         select.appendChild(option);
+         });
+     });
+    }
+    cargarSelectoresServicios(); 
+    
+    document.addEventListener("click", (event) =>{
+        if(event.target.classList.contains("btn-sumar-servicio")){
+            const tarjetaPC=event.target.closest(".pcs");
+            const idPC=tarjetaPC.id;
+            const selectServicio=tarjetaPC.querySelector(".select-agregar-servicio");
+            const displayCosto=tarjetaPC.querySelector(".costo");
+            const precioServicio = parseInt(selectServicio.value)||0;
+            if(precioServicio===0) {
+                alert("Por favor selecciona un servicio válido para sumar.");
+                return;
+            }
+            const estadoactual=estadosesion[idPC];            
+            if(!estadoactual.costoExtras){
+             estadoactual.costoExtras=0;
+            }
+            estadoactual.costoExtras+=precioServicio;
+            const mintotales=Math.ceil(estadoactual.segundostotales/60);
+            const costoTiempo=mintotales*Tarifa_por_minuto;
+            const costoTotalFinal=costoTiempo+estadoactual.costoExtras;
+            displayCosto.textContent=`Costo: ${costoTotalFinal.toLocaleString()}$`;
+            alert(`¡Servicio agregado exitosamentea ${tarjetaPC.querySelector("h3").textContent} por $${precioServicio.toLocaleString()}!`);
+            selectServicio.value="";
+    }   
+    });
     const rol = localStorage.getItem('userrole') || 'Encargado';
     const textoRol=document.getElementById("rol-display");
     if (textoRol) {

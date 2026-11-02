@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberNet - Administración de Servicios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="encabezado">
+        <h1>CyberNet - Administración de Servicios</h1>
+    </header>
+    <main class="main-container">
+        <section class="historial">
+            <h3>Registrar Nuevo Servicio o Producto</h3>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" id="nombre-servicio" placeholder="Nombre del servicio (ej: Impresión, Snack)" style="padding: 8px; flex: 1; min-width: 200px;">
+                <input type="number" id="precio-servicio" placeholder="Precio (ej: 1000)" style="padding: 8px; width: 150px;">
+                <button id="btn-guardar-servicio" class="btn-accion" style="padding: 8px 16px;">Agregar Servicio</button>
+            </div>
+        </section>
+        <section class="historial">
+            <h3>Servicios y Productos Disponibles</h3>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                     <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-servicios">
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const inputNombre=document.getElementById("nombre-servicio");
+            const inputPrecio=document.getElementById("precio-servicio");
+            const btnGuardar=document.getElementById("btn-guardar-servicio");
+            const tbodyServicios=document.getElementById("tabla-servicios");
+            function cargarServicios(){
+                tbodyServicios.innerHTML="";
+                if (!localStorage.getItem("servicios") || JSON.parse(localStorage.getItem("servicios")).length === 0) {
+                    const serviciosIniciales =[
+                        { nombre: "Impresión B/N (Hoja)", precio: "$100" },
+                        { nombre: "Bebida Lata 350ml", precio: "$1.200" },
+                        { nombre: "Snack / Galletas", precio: "$800" }
+                    ];
+                    localStorage.setItem("servicios", JSON.stringify(serviciosIniciales));
+                }
+                const listaServicios=JSON.parse(localStorage.getItem("servicios"))||[];
+                if(listaServicios.length > 0){
+                    listaServicios.forEach((servicio, index) =>{
+                        const fila = document.createElement("tr");
+                        fila.innerHTML=`
+                            <td>${servicio.nombre}</td>
+                            <td>${servicio.precio}</td>
+                            <td><button class="btn-accion apagar btn-eliminar-servicio" data-index="${index}" style="padding: 4px 8px; width: auto;">Eliminar</button></td>
+                        `;
+                        tbodyServicios.appendChild(fila);
+                    });
+                }else{
+                    tbodyServicios.innerHTML=`<tr><td colspan="3" style="text-align: center;">No hay servicios registrados.</td></tr>`;
+                }
+            }
+            cargarServicios();
+            btnGuardar.addEventListener("click",() =>{
+                const nombre=inputNombre.value.trim();
+                const precioVal=inputPrecio.value.trim();
+
+                if(!nombre||!precioVal){
+                 alert("Por favor, completa ambos campos para registrar el servicio.");
+                return;
+                }
+                const precioFormateado=preciovalFormateado(precioVal);
+                let listaServicios=JSON.parse(localStorage.getItem("servicios")) || [];
+                listaServicios.push({nombre:nombre, precio: precioFormateado });
+            
+                localStorage.setItem("servicios", JSON.stringify(listaServicios));
+                inputNombre.value="";
+                inputPrecio.value="";
+                cargarServicios();
+            });
+            function preciovalFormateado(valor){
+                if (valor.startsWith("$")) return valor;
+                return "$"+Number(valor).toLocaleString("es-CL");
+            }
+            tbodyServicios.addEventListener("click", (event) =>{
+                if(event.target.classList.contains("btn-eliminar-servicio")){
+                    const index=event.target.getAttribute("data-index");
+                    let listaServicios=JSON.parse(localStorage.getItem("servicios"))||[];
+                    if (confirm("¿Estás seguro de eliminar este servicio?")){
+                        listaServicios.splice(index, 1);
+                        localStorage.setItem("servicios", JSON.stringify(listaServicios));
+                        cargarServicios();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
