@@ -135,32 +135,34 @@ tarjetasPC.forEach((tarjeta)=>{
                 btnIniciar.textContent="iniciar";
                 const h3t=tarjeta.querySelector("h3").textContent;
                 const mintotales=Math.ceil(estadoactual.segundostotales/60);
-                const costoT=mintotales*Tarifa_por_minuto;
-                const fechaHoy=new Date().toISOString().split("T")[0];
-                const nuevaseccion={
-                    fecha:fechaHoy,
-                    cliente:"CLiente General",
-                    pc:h3t,
-                    tiempo:`${mintotales} minutos`,
-                    monto:`$${costoT.toLocaleString()}`
-                };
+                const extras = estadoactual.costoExtras || 0;
+        const costoT = (mintotales * Tarifa_por_minuto) + extras;
+        const fechaHoy = new Date().toISOString().split("T")[0];
+        const nuevaseccion = {
+            fecha: fechaHoy,
+            cliente: "Cliente General",
+            pc: h3t,
+            tiempo: `${mintotales} minutos`,
+            monto: `$${costoT.toLocaleString()}`
+        };
 
-                let historial=JSON.parse(localStorage.getItem("historial"))||[];
-                historial.unshift(nuevaseccion);
-                localStorage.setItem("historial", JSON.stringify(historial));
+        let historial = JSON.parse(localStorage.getItem("historial")) || [];
+        historial.unshift(nuevaseccion);
+        localStorage.setItem("historial", JSON.stringify(historial));
 
-                let recaudacionTotal=parseFloat(localStorage.getItem("recaudacionTotal"))||0;
-                recaudacionTotal+=costoT;
-                localStorage.setItem("recaudacionTotal", recaudacionTotal);
-                const visorRecaudacion=document.getElementById("recaudacion-display");
-                if(visorRecaudacion){
-                    visorRecaudacion.textContent=`$${recaudacionTotal.toLocaleString()}`;
-                }
+        let recaudacionTotal = parseFloat(localStorage.getItem("recaudacionTotal")) || 0;
+        recaudacionTotal += costoT;
+        localStorage.setItem("recaudacionTotal", recaudacionTotal);
+        const visorRecaudacion = document.getElementById("recaudacion-display");
+        if (visorRecaudacion) {
+            visorRecaudacion.textContent = `$${recaudacionTotal.toLocaleString()}`;
+        }
 
-                Agregarhis(`${h3t}-sesion cerrada. Costo: ${costoT.toLocaleString()}$`);
-                selectmodo.value="disponible";
-                selectmodo.dispatchEvent(new Event("change"));
-                alert(`tiempo terminado en ${h3t}. Costo total: ${costoT.toLocaleString()}$`);
+        Agregarhis(`${h3t}-sesion cerrada. Costo: $${costoT.toLocaleString()}`);
+        selectmodo.value = "disponible";
+        selectmodo.dispatchEvent(new Event("change"));
+        alert(`tiempo terminado en ${h3t}. Costo total: $${costoT.toLocaleString()}`);
+        estadoactual.costoExtras = 0;
                 
             }
         }, 1000);
@@ -175,6 +177,7 @@ tarjetasPC.forEach((tarjeta)=>{
         estadoactual.segundosRestantes=0;
         estadoactual.segundostotales=0;
         estadoactual.enejecucion=false;
+        estadoactual.costoExtra = 0;
         displayCronometro.textContent="00:00:00";
         displayCosto.textContent="Costo: 0";
         inputTiempo.value="";
